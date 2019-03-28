@@ -3,11 +3,11 @@ package pl.niziol;
 import java.util.LinkedList;
 
 public class ThreeColumns {
-    public void print(String inputtedText, int[] widthOfColumns){
-        System.out.println(getText(inputtedText, widthOfColumns));
+    public void print(String inputtedText, int[] widthOfColumns, TextWarpType wrapType){
+        System.out.println(getText(inputtedText, widthOfColumns, wrapType));
     }
 
-    private String getText(String inputtedText, int[] widthOfColumns) {
+    private String getText(String inputtedText, int[] widthOfColumns, TextWarpType wrapType) {
         StringBuilder result = new StringBuilder();
         Column column = new Column();
 
@@ -18,9 +18,9 @@ public class ThreeColumns {
         // index...Fourth
         // ...
 
-        LinkedList<String> firstColumn = column.getColumn(wordsList, widthOfColumns[0], 0, indexOfLastWordInFirstColumn);
-        LinkedList<String> secondColumn = column.getColumn(wordsList, widthOfColumns[1], indexOfLastWordInFirstColumn + 1, indexOfLastWordInSecondColumn);
-        LinkedList<String> thirdColumn = column.getColumn(wordsList, widthOfColumns[2], indexOfLastWordInSecondColumn + 1, wordsList.size() - 1);
+        LinkedList<String> firstColumn = column.getColumn(wordsList, wrapType, widthOfColumns[0], 0, indexOfLastWordInFirstColumn);
+        LinkedList<String> secondColumn = column.getColumn(wordsList, wrapType, widthOfColumns[1], indexOfLastWordInFirstColumn + 1, indexOfLastWordInSecondColumn);
+        LinkedList<String> thirdColumn = column.getColumn(wordsList, wrapType, widthOfColumns[2], indexOfLastWordInSecondColumn + 1, wordsList.size() - 1);
         // fourthColumn
         // fifthColumn
         // ...

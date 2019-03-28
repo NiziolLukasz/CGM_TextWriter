@@ -19,13 +19,11 @@ public class Main {
 
         System.out.println(); // linijka odstępu dla wyglądu
         //String text = new Reader().getText(TextReaderType.Console);
-        new TextPrinter().print(potop_rozdzial_1, TextOutputType.Console, widthOfColumns);
+        new TextPrinter().print(potop_rozdzial_1, TextOutputType.Console, widthOfColumns, TextWarpType.Wrap);
     }
 }
 
 /*
-Oczekiwany wynik:
-    Zadany przez urzytkownika tekst ma pojawić się w 2 kolumnach. Pierwsza kolumna oraz druga kolumna ma mieć Constants.TWO_COLUMN_WIDTH szerokości.
 
 Występujące błędy:
 
