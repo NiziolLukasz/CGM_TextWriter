@@ -13,11 +13,13 @@ public class Main {
 
         ConsoleReader reader = new ConsoleReader();
 
+        System.out.println("Enter number of columns:");
         int numberOfColumns = reader.readNumberOfColumns();
+        int[] widthOfColumns = reader.readWidthOfColumns(numberOfColumns);
 
         System.out.println(); // linijka odstępu dla wyglądu
         //String text = new Reader().getText(TextReaderType.Console);
-        new TextPrinter().print(potop_rozdzial_1, TextOutputType.Console, TextPrintType.ThreeColumns);
+        new TextPrinter().print(potop_rozdzial_1, TextOutputType.Console, widthOfColumns);
     }
 }
 

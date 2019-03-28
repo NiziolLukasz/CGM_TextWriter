@@ -62,7 +62,7 @@ public class Column {
         return index;
     }
 
-    public String getSpaces() {
-        return IntStream.range(0, Constants.SPACE_BETWEEN_COLUMNS).mapToObj(i -> " ").collect(Collectors.joining(""));
+    public String getSpaces(int numberOfSpaces) {
+        return IntStream.range(0, numberOfSpaces).mapToObj(i -> " ").collect(Collectors.joining(""));
     }
 }

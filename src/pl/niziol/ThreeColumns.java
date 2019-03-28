@@ -3,43 +3,40 @@ package pl.niziol;
 import java.util.LinkedList;
 
 public class ThreeColumns {
-    public void print(String inputtedText){
-        System.out.println(getText(inputtedText));
+    public void print(String inputtedText, int[] widthOfColumns){
+        System.out.println(getText(inputtedText, widthOfColumns));
     }
 
-    private String getText(String inputtedText) {
+    private String getText(String inputtedText, int[] widthOfColumns) {
+        StringBuilder result = new StringBuilder();
         Column column = new Column();
-        StringBuilder result;
 
         LinkedList<String> wordsList = new StringConverter().convertToStringList(inputtedText);
-        int indexOfLastWordInFirstColumn = column.findIndexOfLastWordInColumn(wordsList, 0, inputtedText.length(), Constants.THREE_COLUMN_WIDTH, 3);
-        int indexOfLastWordInSecondColumn = column.findIndexOfLastWordInColumn(wordsList, indexOfLastWordInFirstColumn, inputtedText.length(), Constants.THREE_COLUMN_WIDTH, 3);
+        int indexOfLastWordInFirstColumn = column.findIndexOfLastWordInColumn(wordsList, 0, inputtedText.length(), widthOfColumns[0], widthOfColumns.length);
+        int indexOfLastWordInSecondColumn = column.findIndexOfLastWordInColumn(wordsList, indexOfLastWordInFirstColumn, inputtedText.length(), widthOfColumns[1], widthOfColumns.length);
         // index...Third
         // index...Fourth
         // ...
 
-        LinkedList<String> firstColumn = column.getColumn(wordsList, Constants.THREE_COLUMN_WIDTH, 0, indexOfLastWordInFirstColumn);
-        LinkedList<String> secondColumn = column.getColumn(wordsList, Constants.THREE_COLUMN_WIDTH, indexOfLastWordInFirstColumn + 1, indexOfLastWordInSecondColumn);
-        LinkedList<String> thirdColumn = column.getColumn(wordsList, Constants.THREE_COLUMN_WIDTH, indexOfLastWordInSecondColumn + 1, wordsList.size() - 1);
+        LinkedList<String> firstColumn = column.getColumn(wordsList, widthOfColumns[0], 0, indexOfLastWordInFirstColumn);
+        LinkedList<String> secondColumn = column.getColumn(wordsList, widthOfColumns[1], indexOfLastWordInFirstColumn + 1, indexOfLastWordInSecondColumn);
+        LinkedList<String> thirdColumn = column.getColumn(wordsList, widthOfColumns[2], indexOfLastWordInSecondColumn + 1, wordsList.size() - 1);
         // fourthColumn
         // fifthColumn
         // ...
 
-        result = arrangeTheColumns(firstColumn, secondColumn, thirdColumn); // fourthColumn, fifthColumn, ...
-
-        return result.toString();
-    }
-
-    private StringBuilder arrangeTheColumns(LinkedList<String> firstColumn, LinkedList<String> secondColumn, LinkedList<String> thirdColumn){
-        StringBuilder result = new StringBuilder();
-        String spaces = new Column().getSpaces();
+        String spaces = column.getSpaces(Constants.SPACE_BETWEEN_COLUMNS);
         while (!(firstColumn.isEmpty() && secondColumn.isEmpty() && thirdColumn.isEmpty()) ){
             if(!firstColumn.isEmpty()){
                 result.append(firstColumn.pop());
+            } else {
+                result.append(column.getSpaces(widthOfColumns[0]));
             }
             result.append(spaces);
             if(!secondColumn.isEmpty()){
                 result.append(secondColumn.pop());
+            } else {
+                result.append(column.getSpaces(widthOfColumns[1]));
             }
             result.append(spaces);
             if(!thirdColumn.isEmpty()){
@@ -47,6 +44,7 @@ public class ThreeColumns {
             }
             result.append("\n");
         }
-        return result;
+
+        return result.toString();
     }
 }
