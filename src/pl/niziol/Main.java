@@ -19,7 +19,7 @@ public class Main {
 
         System.out.println(); // linijka odstępu dla wyglądu
         //String text = new Reader().getText(TextReaderType.Console);
-        new TextPrinter().print(potop_rozdzial_1, TextOutputType.Console, widthOfColumns, TextWarpType.Wrap);
+        new TextPrinter().print(potop_rozdzial_1, TextOutputType.Console, widthOfColumns, TextWarpType.Cut);
     }
 }
 
