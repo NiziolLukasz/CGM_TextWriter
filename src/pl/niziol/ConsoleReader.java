@@ -3,7 +3,7 @@ package pl.niziol;
 import java.util.Scanner;
 
 public class ConsoleReader {
-    public String read() {
+    public String readLine() {
         return new Scanner(System.in).nextLine();
     }
 
@@ -13,7 +13,7 @@ public class ConsoleReader {
 
     private int readInteger() {
         try {
-            return Integer.parseInt(read());
+            return Integer.parseInt(readLine());
         } catch (Exception e) {
             throw new IllegalArgumentException("Wrong Integer value: " + e.getLocalizedMessage());
         }

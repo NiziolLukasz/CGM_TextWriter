@@ -9,13 +9,10 @@ public class Columns {
     }
 
     private String getText(String inputtedText, int[] widthOfColumns, TextWarpType wrapType) {
-
-        StringBuilder result;
         LinkedList<String> wordsList = new StringConverter().convertToStringList(inputtedText);
-
         int[] indexes = findLastIndexes(wordsList, inputtedText.length(), widthOfColumns);
         LinkedList<LinkedList<String>> columns = getAllColumns(wordsList, wrapType, widthOfColumns, indexes);
-        result = organizeColumns(columns, widthOfColumns);
+        StringBuilder result = organizeColumns(columns, widthOfColumns);
 
         return result.toString();
     }
@@ -43,37 +40,6 @@ public class Columns {
                 result.append("\n");
             }
         }
-
-        /*while (!(firstColumn.isEmpty() && secondColumn.isEmpty() && thirdColumn.isEmpty() && fourthColumn.isEmpty()) ){
-            if(!firstColumn.isEmpty()){
-                result.append(firstColumn.pop());
-            } else {
-                result.append(column.getSpaces(widthOfColumns[0]));
-            }
-            result.append(spaces);
-
-            if(!secondColumn.isEmpty()){
-                result.append(secondColumn.pop());
-            } else {
-                result.append(column.getSpaces(widthOfColumns[1]));
-            }
-            result.append(spaces);
-
-            if(!thirdColumn.isEmpty()){
-                result.append(thirdColumn.pop());
-            }else {
-                result.append(column.getSpaces(widthOfColumns[2]));
-            }
-            result.append(spaces);
-
-            if(!fourthColumn.isEmpty()){
-                result.append(fourthColumn.pop());
-            }else {
-                result.append(column.getSpaces(widthOfColumns[2]));
-            }
-
-            result.append("\n");
-        }*/
     }
 
     private LinkedList<LinkedList<String>> getAllColumns(LinkedList<String> wordsList, TextWarpType wrapType, int[] widthOfColumns, int[] indexes) {

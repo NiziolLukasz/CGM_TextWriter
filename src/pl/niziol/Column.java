@@ -9,6 +9,15 @@ public class Column {
     private StringBuilder result;
     private int charCounter;
     private int columnWidth;
+    private String croppedText;
+
+    public String getCroppedText() {
+        return croppedText;
+    }
+
+    public void setCroppedText(String croppedText) {
+        this.croppedText = croppedText;
+    }
 
     private String getWord() {
         return word;
@@ -46,7 +55,7 @@ public class Column {
         setResult(new StringBuilder());
         setCharCounter(0);
         setColumnWidth(columnWidth);
-        String croppedText = "";
+        setCroppedText("");
         int index = beginIndex;
         LinkedList<String> column = new LinkedList<>();
 
@@ -55,7 +64,7 @@ public class Column {
                 setWord(wordsList.get(index));
                 setCharCounter(getCharCounter() + getWord().length());
                 if (getCharCounter() > getColumnWidth()) {
-                    croppedText = wrapWordIfTooLong(croppedText, wrapType);
+                    wrapWordIfTooLong(wrapType);
                 } else {
                     getResult().append(getWord());
                     setCharCounter(getCharCounter() + 1);
@@ -66,9 +75,9 @@ public class Column {
                 index++;
             }
             column.add(getResult().toString());
-            setCharCounter(croppedText.length());
-            setResult(new StringBuilder(croppedText));
-            croppedText = "";
+            setCharCounter(getCroppedText().length());
+            setResult(new StringBuilder(getCroppedText()));
+            setCroppedText("");
         }
         if (!getResult().toString().equals("")) {
             column.add(getResult().toString());
@@ -81,46 +90,41 @@ public class Column {
         return column;
     }
 
-    private String wrapWordIfTooLong(String croppedText, TextWarpType wrapType) {
+    private void wrapWordIfTooLong(TextWarpType wrapType) {
         if (wrapType == TextWarpType.Wrap) {
-            return wrapWord(croppedText);
+            wrapWord();
         } else if (wrapType == TextWarpType.Cut) {
-            return cutWord(croppedText);
+            cutWord();
         } else {
             throw new IllegalArgumentException("Illegal TextWarpType: " + wrapType);
         }
-
     }
 
-    private String wrapWord(String croppedText) {
+    private void wrapWord() {
 
         int cropPoint = getWord().length() - (getCharCounter() - getColumnWidth());
         getResult().append(getSpaces(cropPoint));
-        croppedText = getWord() + " ";
-
-        return croppedText;
+        setCroppedText(getWord() + " ");
     }
 
-    private String cutWord(String croppedText) {
+    private void cutWord() {
         int cropPoint = getWord().length() - (getCharCounter() - getColumnWidth()) - 1;
         if (cropPoint == 0) {
             getResult().append(" ");
-            croppedText = getWord() + " ";
+            setCroppedText(getWord() + " ");
         } else {
             getResult().append(getWord(), 0, cropPoint).append("-");
-            croppedText = getWord().substring(cropPoint) + " ";
+            setCroppedText(getWord().substring(cropPoint) + " ");
         }
-
-        return croppedText;
     }
 
-    protected int findIndexOfLastWordInColumn(LinkedList<String> wordsList, int startingIndex, int stringLength, int widthOfSingleColumn, int divine) {
-        if (stringLength < widthOfSingleColumn) {
+    protected int findIndexOfLastWordInColumn(LinkedList<String> wordsList, int startingIndex, int stringLength, int columnWidth, int divine) {
+        if (stringLength < columnWidth) {
             return wordsList.size() / divine;
         }
         int columnBreakPoint = stringLength / divine;
         int charCounter = 0, index = startingIndex;
-        for (; (charCounter < columnBreakPoint || charCounter < widthOfSingleColumn) && index != wordsList.size(); index++) { // do until you reach half of text and text have X characters in line, or end of text
+        for (; (charCounter < columnBreakPoint || charCounter < columnWidth) && index != wordsList.size(); index++) { // do until you reach half of text and text have X characters in line, or end of text
             charCounter += wordsList.get(index).length() + 1; // add text length plus one space
         }
         return index;
