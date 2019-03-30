@@ -18,27 +18,34 @@ public class Columns {
     }
 
     private StringBuilder organizeColumns(LinkedList<LinkedList<String>> columns, int[] widthOfColumns) {
-        Column column = new Column();
         StringBuilder result = new StringBuilder();
         for (int i = 0;; i++) {
-            if(!columns.get(i).isEmpty()){
-                result.append(columns.get(i).pop());
-            } else {
-                result.append(column.getSpaces(widthOfColumns[i]));
-            }
-            result.append(column.getSpaces(Constants.SPACE_BETWEEN_COLUMNS));
-
-            if(i == columns.size() - 1){
-                for (int j = 0; j < columns.size(); j++) {
-                    if(!columns.get(j).isEmpty()){
-                        break;
-                    }else if(j == columns.size() - 1){
-                        return result;
-                    }
+            result.append(getSingleLine(columns, i, widthOfColumns));
+            if(i == columns.size() - 1){    // check if we are on the last column
+                if(areColumnsEmpty(columns)){   // if columns are empty then return our text
+                    return result;
+                }else{  // if not...
+                    i = -1; // ..then go back to first column and...
+                    result.append("\n");    // ..start with next line
                 }
-                i = -1;
-                result.append("\n");
             }
+        }
+    }
+
+    private boolean areColumnsEmpty(LinkedList<LinkedList<String>> columns) {
+        for (int j = 0; j < columns.size(); j++) {
+            if(!columns.get(j).isEmpty()){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private String getSingleLine(LinkedList<LinkedList<String>> columns, int index, int[] widthOfColumns) {
+        if(!columns.get(index).isEmpty()){
+            return columns.get(index).pop() + new Column().getSpaces(Constants.SPACE_BETWEEN_COLUMNS);
+        } else {
+            return new Column().getSpaces(widthOfColumns[index] + Constants.SPACE_BETWEEN_COLUMNS);
         }
     }
 

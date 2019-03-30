@@ -101,7 +101,6 @@ public class Column {
     }
 
     private void wrapWord() {
-
         int cropPoint = getWord().length() - (getCharCounter() - getColumnWidth());
         getResult().append(getSpaces(cropPoint));
         setCroppedText(getWord() + " ");
