@@ -29,10 +29,8 @@ Występujące błędy:
 
 Zle wyswietla kolumny, poniewaz przydziela tekst kolumnie, ale nie patrzy na to czy słowa zostaną przeżucone | By to zaimplementować musze przewidzieć najpierw czy będę ucinał słowa czy przenosił całe. Na podstawie tego muszę przewidzieć ile tekstu zostanie przesunięte do następnej lini zanim zacznę tworzyć kolumny.
 Tekst gdy jest w opcji "Cut" przycina wyraz do x znaków a potem całość daje do następnej linii. Widoczny błąd, gdy szerokość kolumny to 2; | Muszę całkowicie zmienić tworzenie jednej kolumny, by móc w momencie przycinania wrócic z przyciętym tekstem do początku. To poszeża też problem nierównych kolumn
-Nie ucina długiego textu | Wrap nie ucina go wcale | Cut ucina tylko pierwszą część, a reszte zbyt długiego słowa rzuca do następnej linii | będzie naprawione wraz z błędem nr 2
 Nie działa dla małe ilości słów
-nie działa przy ilości kolumn rónej ilościom słów
-Nie działa jak mamy mały tekst, a prosimy o dużą ilość kolumn
+nie działa przy ilości kolumn która jast większa niż ilość słów
 Program nie obsługuje enterów, tylko ciągły tekst, lecz jest to do zaimplementowania.
 
 
